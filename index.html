@@ -26,13 +26,13 @@
         <div class="col">
             <button type="button" class="btn btn-secondary" id="main-button">Main</button>
             <button type="button" class="btn btn-secondary" id="map-button">Map</button>
-            <button type="button" class="btn btn-secondary" id="mlg-button">MLG</button>
+            <button type="button" class="btn btn-secondary" id="mlg-button" data-toggle="tooltip" data-placement="bottom" title="Higher bitrate (12k vs 6k) but slightly behind.">MLG</button>
         </div>
     </div>
 
     <div class="row mb-3">
-      <div class="col" id="team-1">Team 1</div>
-      <div class="col" id="team-2">Team 2</div>
+        <div class="col" id="team-1">Team 1</div>
+        <div class="col" id="team-2">Team 2</div>
     </div>
 
     <div class="row mb-3">
@@ -77,7 +77,8 @@
     <!-- Add a placeholder for the Twitch embed -->
     <div id="video"></div>
     <div id="chat">
-        <iframe frameborder="0" scrolling="no" id="chat_embed" src="https://www.twitch.tv/embed/OverwatchLeague/chat?darkpopout" height="100%" width="100%">
+        <iframe frameborder="0" scrolling="no" id="chat_embed"
+                src="https://www.twitch.tv/embed/OverwatchLeague/chat?darkpopout" height="100%" width="100%">
         </iframe>
     </div>
 </div>
