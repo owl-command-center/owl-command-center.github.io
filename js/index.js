@@ -27,12 +27,13 @@ const graphQLQuery = [
     }
 ];
 
+$('[data-toggle="tooltip"]').tooltip();
 
 let elements = [];
 let channels = [];
 //main, map, mlg, 6x t1 POV, 6x t2 POV, 6x t1 comp, 6x t2 comp
 
-for (let i=0; i<27; i++) {
+for (let i = 0; i < 27; i++) {
     elements.push(null);
     channels.push(null);
 }
@@ -41,16 +42,16 @@ elements[0] = document.querySelector("#main-button");
 elements[1] = document.querySelector("#map-button");
 elements[2] = document.querySelector("#mlg-button");
 
-for (let i=0; i<6; i++) {
-    elements[3+i] = document.querySelector("#team-1-pov button:nth-of-type(" + (i + 1) + ")");
+for (let i = 0; i < 6; i++) {
+    elements[3 + i] = document.querySelector("#team-1-pov button:nth-of-type(" + (i + 1) + ")");
 }
-for (let i=0; i<6; i++) {
-    elements[9+i] = document.querySelector("#team-2-pov button:nth-of-type(" + (i + 1) + ")");
+for (let i = 0; i < 6; i++) {
+    elements[9 + i] = document.querySelector("#team-2-pov button:nth-of-type(" + (i + 1) + ")");
 }
 
 let selectedStream = 0;
 
-for (let i=0; i<15; i++) {
+for (let i = 0; i < 15; i++) {
     if (i !== 2) {
         elements[i].addEventListener("click", () => {
             let composite = i >= 3 && $('input[type=radio]:checked').val() === "composite";
@@ -65,8 +66,7 @@ for (let i=0; i<15; i++) {
             $(elements[i]).addClass('active');
             selectedStream = i;
         });
-    }
-    else {
+    } else {
         elements[i].addEventListener("click", () => {
             $(elements[selectedStream]).removeClass('active');
             mlgStream();
@@ -80,8 +80,7 @@ for (let i=0; i<15; i++) {
             $('input[type=radio]').prop('disabled', true);
             $('label.btn').addClass('disabled', true);
         });
-    }
-    else {
+    } else {
         elements[i].addEventListener("click", () => {
             $('input[type=radio]').prop('disabled', false);
             $('label.btn').removeClass('disabled', true);
@@ -94,8 +93,7 @@ $('input[type=radio]').change(e => {
         let newStream = selectedStream + 12;
         console.log(newStream);
         gotoChannel(channels[newStream].owner.login);
-    }
-    else if (e.currentTarget.value === "pov") {
+    } else if (e.currentTarget.value === "pov") {
         let newStream = selectedStream;
         console.log(newStream);
         gotoChannel(channels[newStream].owner.login);
