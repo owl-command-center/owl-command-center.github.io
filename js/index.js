@@ -1,11 +1,15 @@
 function gotoChannel(channel) {
-    document.querySelector("#twitch-embed").innerHTML = "";
-    new Twitch.Embed("twitch-embed", {
-        width: "768",
-        height: "468",
+    document.querySelector("#video").innerHTML = "";
+    new Twitch.Embed("video", {
+        width: "100%",
+        height: "100%",
         channel: channel,
         layout: "video"
     });
+}
+
+function mlgStream() {
+    document.querySelector("#video").innerHTML = '<iframe frameborder="0" scrolling="no" id="mlg_player" src="https://player2.majorleaguegaming.com/api/v2/player/embed/live/?ch=overwatch-league" height="100%" width="100%" allow="autoplay; fullscreen" allowfullscreen></iframe>';
 }
 
 const clientId = 'd6g6o112aam5s8q2di888us9o3kuyh';
@@ -26,55 +30,61 @@ const graphQLQuery = [
 
 let elements = [];
 let channels = [];
-for (let i=0; i<26; i++) {
+//main, map, mlg, 6x t1 POV, 6x t2 POV, 6x t1 comp, 6x t2 comp
+
+for (let i=0; i<27; i++) {
     elements.push(null);
     channels.push(null);
 }
 
 elements[0] = document.querySelector("#main-button");
 elements[1] = document.querySelector("#map-button");
-for (let i=0; i<6; i++) {
-    elements[2+i] = document.querySelector("#team-1-pov button:nth-of-type(" + (i + 1) + ")");
-}
-for (let i=0; i<6; i++) {
-    elements[8+i] = document.querySelector("#team-2-pov button:nth-of-type(" + (i + 1) + ")");
-}
+elements[2] = document.querySelector("#mlg-button");
 
-/*
 for (let i=0; i<6; i++) {
-    elements[14+i] = document.querySelector("#team-1-composite button:nth-of-type(" + (i + 1) + ")");
+    elements[3+i] = document.querySelector("#team-1-pov button:nth-of-type(" + (i + 1) + ")");
 }
 for (let i=0; i<6; i++) {
-    elements[20+i] = document.querySelector("#team-2-composite button:nth-of-type(" + (i + 1) + ")");
+    elements[9+i] = document.querySelector("#team-2-pov button:nth-of-type(" + (i + 1) + ")");
 }
-*/
-
 
 let selectedStream = 0;
 
-for (let i=0; i<14; i++) {
-    elements[i].addEventListener("click", () => {
-        let composite = i>=2 && $('input[type=radio]:checked').val() === "composite";
-        let newStream = i;
-        if (composite) {
-            newStream += 12;
-        }
+for (let i=0; i<15; i++) {
+    if (i !== 2) {
+        elements[i].addEventListener("click", () => {
+            let composite = i >= 3 && $('input[type=radio]:checked').val() === "composite";
+            let newStream = i;
+            if (composite) {
+                newStream += 12;
+            }
 
-        $(elements[selectedStream]).removeClass('active');
-        const channelId = channels[newStream].owner.login;
-        gotoChannel(channelId);
-        $(elements[i]).addClass('active');
-        selectedStream = i;
-    });
+            $(elements[selectedStream]).removeClass('active');
+            const channelId = channels[newStream].owner.login;
+            gotoChannel(channelId);
+            $(elements[i]).addClass('active');
+            selectedStream = i;
+        });
+    }
+    else {
+        elements[i].addEventListener("click", () => {
+            $(elements[selectedStream]).removeClass('active');
+            mlgStream();
+            $(elements[i]).addClass('active');
+            selectedStream = i;
+        });
+    }
 
-    if (i < 2) {
+    if (i < 3) {
         elements[i].addEventListener("click", () => {
             $('input[type=radio]').prop('disabled', true);
+            $('label.btn').addClass('disabled', true);
         });
     }
     else {
         elements[i].addEventListener("click", () => {
             $('input[type=radio]').prop('disabled', false);
+            $('label.btn').removeClass('disabled', true);
         })
     }
 }
@@ -121,15 +131,15 @@ fetch(graphQLEndpoint, {
             const teamImage = c.contentAttributes.find(a => a.key === "team").imageURL;
             let playerNumber = parseInt(player.split(" ")[1]);
             if (team === "Team A") {
-                channels[2 + playerNumber - 1] = c;
-                $(elements[2 + playerNumber - 1]).tooltip({title: playerName});
-                $(elements[2 + playerNumber - 1]).html(`<img src='${roleImage}' width="40">`);
+                channels[3 + playerNumber - 1] = c;
+                $(elements[3 + playerNumber - 1]).tooltip({title: playerName});
+                $(elements[3 + playerNumber - 1]).html(`<img src='${roleImage}' width="40">`);
 
                 $("#team-1").html(`<img src='${teamImage}'>`);
             } else {
-                channels[8 + playerNumber - 1] = c;
-                $(elements[8 + playerNumber - 1]).tooltip({title: playerName});
-                $(elements[8 + playerNumber - 1]).html(`<img src='${roleImage}' width="40">`);
+                channels[9 + playerNumber - 1] = c;
+                $(elements[9 + playerNumber - 1]).tooltip({title: playerName});
+                $(elements[9 + playerNumber - 1]).html(`<img src='${roleImage}' width="40">`);
 
                 $("#team-2").html(`<img src='${teamImage}'>`);
             }
@@ -140,13 +150,9 @@ fetch(graphQLEndpoint, {
             let playerNumber = parseInt(player.split(" ")[1]);
             const roleImage = c.contentAttributes.find(a => a.key === "role").imageURL;
             if (team === "Team A") {
-                channels[14 + playerNumber - 1] = c;
-                //$(elements[14 + playerNumber - 1]).tooltip({title: playerName + " / Composite"});
-                //$(elements[14 + playerNumber - 1]).html(`<img src='${roleImage}' width="40">`);
+                channels[15 + playerNumber - 1] = c;
             } else {
-                channels[20 + playerNumber - 1] = c;
-                //$(elements[20 + playerNumber - 1]).tooltip({title: playerName + " / Composite"});
-                //$(elements[20 + playerNumber - 1]).html(`<img src='${roleImage}' width="40">`);
+                channels[21 + playerNumber - 1] = c;
             }
         } else {
             console.error("Unhandled stream type: " + streamType);
