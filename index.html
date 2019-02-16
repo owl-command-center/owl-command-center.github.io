@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <title>OWL Command Center</title>
 
-    <!-- TODO - make local -->
     <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.2.1/darkly/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-F7cPHYSdE3FzBKvdxDKyFow9Y28Yq7KGHQOKpOI+rwc8s6jJnp///mpEJAib2EM6" crossorigin="anonymous">
+    <link href="css/styles.css" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -17,9 +17,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
-
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
 </head>
 <body>
 
@@ -29,10 +26,11 @@
         <div class="col">
             <button type="button" class="btn btn-secondary" id="main-button">Main</button>
             <button type="button" class="btn btn-secondary" id="map-button">Map</button>
+            <button type="button" class="btn btn-secondary" id="mlg-button">MLG</button>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-3">
       <div class="col" id="team-1">Team 1</div>
       <div class="col" id="team-2">Team 2</div>
     </div>
@@ -62,56 +60,26 @@
 
     <div class="row mb-3">
         <div class="col">
-            <form>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="typeRadio" id="typeRadio1" value="pov" checked disabled>
-                <label class="form-check-label" for="typeRadio1">POV</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="typeRadio" id="typeRadio2" value="composite" disabled>
-                <label class="form-check-label" for="typeRadio2">Composite</label>
-            </div>
-            </form>
-        </div>
-    </div>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active disabled" id="pov-btn">
+                    <input type="radio" name="typeRadio" id="typeRadio1" autocomplete="off" value="pov" checked> POV
+                </label>
 
-    <!--
-    <div class="row mb-3">
-        <div class="col">
-            <div class="btn-group" id="team-1-composite">
-                <button type="button" class="btn btn-secondary">T1P1</button>
-                <button type="button" class="btn btn-secondary">T1P2</button>
-                <button type="button" class="btn btn-secondary">T1P3</button>
-                <button type="button" class="btn btn-secondary">T1P4</button>
-                <button type="button" class="btn btn-secondary">T1P5</button>
-                <button type="button" class="btn btn-secondary">T1P6</button>
-            </div>
-        </div>
-        <div class="col">
-            <div class="btn-group" id="team-2-composite">
-                <button type="button" class="btn btn-secondary">T2P1</button>
-                <button type="button" class="btn btn-secondary">T2P2</button>
-                <button type="button" class="btn btn-secondary">T2P3</button>
-                <button type="button" class="btn btn-secondary">T2P4</button>
-                <button type="button" class="btn btn-secondary">T2P5</button>
-                <button type="button" class="btn btn-secondary">T2P6</button>
+                <label class="btn btn-secondary disabled" id="composite-btn">
+                    <input type="radio" name="typeRadio" id="typeRadio2" autocomplete="off" value="composite"> Composite
+                </label>
             </div>
         </div>
     </div>
-    -->
 </div>
 
-<div class="container-fluid text-center">
+<div id="viewing-area">
     <!-- Add a placeholder for the Twitch embed -->
-    <div id="twitch-embed" style="display: inline-block;"></div>
-
-    <iframe frameborder="0"
-            scrolling="no"
-            id="chat_embed"
-            src="https://www.twitch.tv/embed/overwatchleague/chat?darkpopout"
-            height="468"
-            width="350">
-    </iframe>
+    <div id="video"></div>
+    <div id="chat">
+        <iframe frameborder="0" scrolling="no" id="chat_embed" src="https://www.twitch.tv/embed/OverwatchLeague/chat?darkpopout" height="100%" width="100%">
+        </iframe>
+    </div>
 </div>
 
 <!-- Load the Twitch embed script -->
