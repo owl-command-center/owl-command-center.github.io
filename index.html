@@ -17,11 +17,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
 </head>
 <body>
 
 
-<div class="container">
+<div class="container text-center">
     <div class="row mb-3">
         <div class="col">
             <button type="button" class="btn btn-secondary" id="main-button">Main</button>
@@ -29,14 +32,12 @@
         </div>
     </div>
 
-    <!--
     <div class="row">
-      <div class="col">Team 1</div>
-      <div class="col">Team 2</div>
+      <div class="col" id="team-1">Team 1</div>
+      <div class="col" id="team-2">Team 2</div>
     </div>
-    -->
 
-    <div class="row">
+    <div class="row mb-3">
         <div class="col">
             <div class="btn-group" id="team-1-pov">
                 <button type="button" class="btn btn-secondary">T1P1</button>
@@ -61,6 +62,22 @@
 
     <div class="row mb-3">
         <div class="col">
+            <form>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="typeRadio" id="typeRadio1" value="pov" checked disabled>
+                <label class="form-check-label" for="typeRadio1">POV</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="typeRadio" id="typeRadio2" value="composite" disabled>
+                <label class="form-check-label" for="typeRadio2">Composite</label>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <!--
+    <div class="row mb-3">
+        <div class="col">
             <div class="btn-group" id="team-1-composite">
                 <button type="button" class="btn btn-secondary">T1P1</button>
                 <button type="button" class="btn btn-secondary">T1P2</button>
@@ -81,21 +98,22 @@
             </div>
         </div>
     </div>
+    -->
+</div>
 
-
+<div class="container-fluid text-center">
     <!-- Add a placeholder for the Twitch embed -->
     <div id="twitch-embed" style="display: inline-block;"></div>
 
     <iframe frameborder="0"
             scrolling="no"
             id="chat_embed"
-            src="https://www.twitch.tv/embed/overwatchleague/chat"
-            height="500"
+            src="https://www.twitch.tv/embed/overwatchleague/chat?darkpopout"
+            height="468"
             width="350">
     </iframe>
-
-
 </div>
+
 <!-- Load the Twitch embed script -->
 <script src="https://embed.twitch.tv/embed/v1.js"></script>
 
